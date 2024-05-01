@@ -14,6 +14,7 @@
 		1DD462892BE23D6A00B6D41A /* movieticketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD462882BE23D6A00B6D41A /* movieticketTests.swift */; };
 		1DD462932BE23D6A00B6D41A /* movieticketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD462922BE23D6A00B6D41A /* movieticketUITests.swift */; };
 		1DD462952BE23D6A00B6D41A /* movieticketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD462942BE23D6A00B6D41A /* movieticketUITestsLaunchTests.swift */; };
+		F86579B02BE23F7C00260121 /* Seat.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86579AF2BE23F7C00260121 /* Seat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		1DD4628E2BE23D6A00B6D41A /* movieticketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = movieticketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD462922BE23D6A00B6D41A /* movieticketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieticketUITests.swift; sourceTree = "<group>"; };
 		1DD462942BE23D6A00B6D41A /* movieticketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = movieticketUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F86579AF2BE23F7C00260121 /* Seat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Seat.swift; path = ../Seat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 		1DD462762BE23D6600B6D41A /* movieticket */ = {
 			isa = PBXGroup;
 			children = (
+				F86579AF2BE23F7C00260121 /* Seat.swift */,
 				1DD462772BE23D6600B6D41A /* movieticketApp.swift */,
 				1DD462792BE23D6600B6D41A /* ContentView.swift */,
 				1DD4627B2BE23D6A00B6D41A /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 			files = (
 				1DD4627A2BE23D6600B6D41A /* ContentView.swift in Sources */,
 				1DD462782BE23D6600B6D41A /* movieticketApp.swift in Sources */,
+				F86579B02BE23F7C00260121 /* Seat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
