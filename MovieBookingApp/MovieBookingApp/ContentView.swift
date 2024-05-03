@@ -1,8 +1,8 @@
 //
 //  ContentView.swift
-//  movieticket
+//  MovieBookingApp
 //
-//  Created by 莊子毅 on 2024/5/1.
+//  Created by 莊子毅 on 2024/5/3.
 //
 
 import SwiftUI
