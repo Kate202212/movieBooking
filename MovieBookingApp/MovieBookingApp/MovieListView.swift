@@ -2,58 +2,43 @@ import SwiftUI
 
 struct MovieListView: View {
     @State private var movies: [Movie] = []
-    @State var currentTab: Tab = .home
+    @State private var showTicket: Bool = false // New state to control ticket visibility
     var apiService = APIService()
 
-    // State for ticket data
-    @State private var movie: Movie?
-    @State private var selectedDate: Date?
-    @State private var selectedTime: String?
-    @State private var selectedSeats: String?
-    @State private var hasTicket: Bool = false
-
     var body: some View {
-        VStack(spacing: 0.0) {
-            TabView(selection: $currentTab) {
-                Text("Location")
-                    .tag(Tab.location)
-
-                NavigationView {
-                    List(movies, id: \.id) { movie in
+        NavigationView {
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+                    ForEach(movies, id: \.id) { movie in
                         NavigationLink(destination: MovieDetailView(movie: movie)) {
-                            HStack {
+                            VStack {
                                 AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)")!) { image in
                                     image.resizable()
                                 } placeholder: {
                                     Color.gray
                                 }
-                                .frame(width: 100, height: 150)
+                                .frame(width: 150, height: 225)
                                 .cornerRadius(8)
+                                
+                            VStack(alignment: .leading) {
+                                Text(movie.title)
+                                    .font(.headline)
+                                    .foregroundColor(.black)
 
-                                VStack(alignment: .leading) {
-                                    Text(movie.title).font(.headline)
-                                    Text("Release Date: \(movie.releaseDate)").font(.subheadline)
-                                }
+                                Text(movie.releaseDate)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
                             }
                         }
+                        .padding()
+                        .background(LinearGradient(gradient: Gradient(colors: [Color("Colorpnk"), Color("lightBlue"), Color("Colorpurp")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                        .cornerRadius(8)
                     }
-                    .navigationTitle("Movies")
-                }
-                
-                .tag(Tab.home)
-
-                if hasTicket {
-                    ticketView(movie: movie!, selectedDate: selectedDate!, selectedTime: selectedTime!, selectedSeats: selectedSeats!, gradient: [Color.blue, Color.purple])
-                        .tag(Tab.ticket)
-                } else {
-                    Text("No ticket, please purchase a ticket first.")
-                        .tag(Tab.ticket)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            CustomTabBar(currentTab: $currentTab)
         }
+        .navigationTitle("Movies")
+        .background(LinearGradient(gradient: Gradient(colors: [Color("Colorpurp"), Color("lightBlue"), Color("Colorpnk")]), startPoint: .topLeading, endPoint: .bottomTrailing))
         .edgesIgnoringSafeArea(.bottom)
         .onAppear {
             if movies.isEmpty {
@@ -62,16 +47,39 @@ struct MovieListView: View {
                 }
             }
         }
+        .overlay(
+            VStack {
+                Spacer()
+                Button(action: {
+                    // Toggle the ticket visibility
+                    showTicket.toggle()
+                }) {
+                    Image(systemName: "ticket")
+                        .font(.system(size: 35))
+                        .foregroundColor(.white)
+                        .frame(width: 60, height: 60)
+                        .background(.pink)
+                        .clipShape(Circle())
+                }
+            }
+        )
+    }
+    .sheet(isPresented: $showTicket) {
+        // Present the ticket view here
+        TicketView()
+        }
     }
 }
 
-
-
-#Preview {
-    MovieListView()
+struct TicketView: View {
+    var body: some View {
+        // Placeholder for the ticket view content
+        Text("Ticket View")
+    }
 }
 
-
-#Preview {
-    MovieListView()
+struct MovieListView_Previews: PreviewProvider {
+    static var previews: some View {
+        MovieListView()
+    }
 }
