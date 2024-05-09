@@ -4,7 +4,7 @@ import SwiftUI
 struct MovieBookingAppApp: App {
     var body: some Scene {
         WindowGroup {
-            MovieListView() 
+            MovieListView()
         }
     }
 }
