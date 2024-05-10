@@ -7,6 +7,8 @@ struct ticketView: View {
     var selectedSeats: String
     var gradient: [Color]
 
+    @State private var isShowingMovieList = false
+    
     var body: some View {
         VStack(spacing: 0) {
             // Top part with movie image
@@ -59,7 +61,9 @@ struct ticketView: View {
             
             VStack {
                 Spacer()
-                NavigationLink(destination: MovieListView()) {
+                Button(action: {
+                    isShowingMovieList = true
+                }) {
                     Image(systemName: "house.fill")
                         .font(.system(size: 35))
                         .foregroundColor(.white)
@@ -67,8 +71,13 @@ struct ticketView: View {
                         .background(.pink)
                         .clipShape(Circle())
                 }
+                .fullScreenCover(isPresented: $isShowingMovieList) {
+                    MovieListView()
+                }
             }
         }
+        .navigationBarTitle("", displayMode: .inline) // Hides the navigation bar title
+        .navigationBarHidden(true) // Hides the navigation bar
     }
 }
 
