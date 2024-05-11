@@ -4,7 +4,7 @@ struct MovieDetailView: View {
     var movie: Movie
     var apiService = APIService()
     
-    @State var gradient = [Color("black").opacity(0), Color("black"), Color("black"), Color("black")]
+    @State var gradient = [Color("Colordark").opacity(0), Color("Colordark"), Color("Colordark"), Color("Colordark")]
     @State private var fullMovieDetails: Movie?
     @State private var selectedDate: Date?
     @State private var selectedTime: String?

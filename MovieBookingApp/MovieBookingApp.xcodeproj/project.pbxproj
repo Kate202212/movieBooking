@@ -19,6 +19,7 @@
 		F87ECEA82BE766D600C4C349 /* seatSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */; };
 		F87ECEAA2BE766F900C4C349 /* seatSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87ECEA92BE766F800C4C349 /* seatSelectionView.swift */; };
 		F87ECEAC2BE7670E00C4C349 /* ticketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87ECEAB2BE7670E00C4C349 /* ticketView.swift */; };
+		F8878B132BEFA36600C810A4 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8878B122BEFA36600C810A4 /* Ticket.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = seatSelectionViewModel.swift; sourceTree = "<group>"; };
 		F87ECEA92BE766F800C4C349 /* seatSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = seatSelectionView.swift; sourceTree = "<group>"; };
 		F87ECEAB2BE7670E00C4C349 /* ticketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ticketView.swift; sourceTree = "<group>"; };
+		F8878B122BEFA36600C810A4 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */,
 				F87ECEA92BE766F800C4C349 /* seatSelectionView.swift */,
 				F87ECEAB2BE7670E00C4C349 /* ticketView.swift */,
+				F8878B122BEFA36600C810A4 /* Ticket.swift */,
 				1DD462F12BE4AF2200B6D41A /* Assets.xcassets */,
 				1DD462F32BE4AF2200B6D41A /* Preview Content */,
 			);
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8878B132BEFA36600C810A4 /* Ticket.swift in Sources */,
 				F87ECEA62BE7668500C4C349 /* BookingSummaryBox.swift in Sources */,
 				1DD463002BE4AFBD00B6D41A /* MovieDetailView.swift in Sources */,
 				1DD463042BE4D67D00B6D41A /* APIService.swift in Sources */,

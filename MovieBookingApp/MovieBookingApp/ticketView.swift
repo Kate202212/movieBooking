@@ -7,6 +7,8 @@ struct ticketView: View {
     var selectedSeats: String
     var gradient: [Color]
 
+    @State private var isShowingMovieList = false
+    
     var body: some View {
         VStack(spacing: 0) {
             // Top part with movie image
@@ -49,19 +51,33 @@ struct ticketView: View {
                 
                 Image("barcode")
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
                     .padding(.horizontal)
-                
             }
             .padding()
             .frame(maxWidth: 300) // Adjusted max width to match the new width
             .background(LinearGradient(gradient: Gradient(colors: gradient), startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
+            
+            VStack {
+                Spacer()
+                Button(action: {
+                    isShowingMovieList = true
+                }) {
+                    Image(systemName: "house.fill")
+                        .font(.system(size: 35))
+                        .foregroundColor(.white)
+                        .frame(width: 60, height: 60)
+                        .background(.pink)
+                        .clipShape(Circle())
+                }
+                .fullScreenCover(isPresented: $isShowingMovieList) {
+                    MovieListView()
+                }
+            }
         }
-        .background(Color.white)
-        .cornerRadius(15)
-        .shadow(radius: 10)
-        .frame(width: 300) // Set the overall width of the ticket view
+        .navigationBarTitle("", displayMode: .inline) // Hides the navigation bar title
+        .navigationBarHidden(true) // Hides the navigation bar
     }
 }
 
