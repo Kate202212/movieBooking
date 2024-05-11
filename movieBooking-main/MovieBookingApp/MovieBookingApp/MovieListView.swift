@@ -66,18 +66,63 @@ struct MovieListView: View {
     }
     .sheet(isPresented: $showTicket) {
         // Present the ticket view here
-        TicketView()
+        MyTicketView()
         }
     }
 }
 
-struct TicketView: View {
+struct MyTicketView: View {
+    @ObservedObject var ticketService = TicketService.shared
+
     var body: some View {
-        // Placeholder for the ticket view content
-        Text("Ticket View")
+        NavigationView {
+            List(ticketService.tickets) { ticket in
+                HStack(alignment: .top, spacing: 16) {
+                    // Load the movie poster image
+                    AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(ticket.movie.posterPath)")) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 120)  // Adjust dimensions as required
+                            .cornerRadius(8)
+                    } placeholder: {
+                        Color.gray
+                            .frame(width: 80, height: 120)  // Placeholder size matching the image
+                            .cornerRadius(8)
+                    }
+
+                    VStack(alignment: .leading) {
+                        Text(ticket.movie.title)
+                            .font(.headline)
+
+                        Text("Date: \(ticket.date, formatter: DateFormatter.ticketDateFormatter)")
+                        Text("Time: \(ticket.time)")
+                        Text("Seats: \(ticket.seats)")
+                    }
+
+                    Spacer()
+
+                    // Cancel Booking Button
+                    Button(action: {
+                        cancelBooking(ticketID: ticket.id)
+                    }) {
+                        Image(systemName: "trash")
+                            .font(.system(size: 24))
+                            .foregroundColor(.red)
+                    }
+                    .padding(.horizontal, 8)
+                }
+                .padding(.vertical, 8)
+            }
+            .navigationTitle("My Tickets")
+        }
+    }
+
+    // Helper method to cancel booking by calling TicketService
+    private func cancelBooking(ticketID: UUID) {
+        ticketService.cancelTicket(ticketID: ticketID)
     }
 }
-
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
         MovieListView()

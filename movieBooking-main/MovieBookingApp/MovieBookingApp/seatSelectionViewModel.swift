@@ -7,21 +7,23 @@ class Seat: Identifiable, ObservableObject, Hashable {
     @Published var status: SeatStatus
     let row: Int
     let number: Int
-
-    init(id: UUID = UUID(), row: Int, number: Int, status: SeatStatus) {
-        self.id = id
-        self.row = row
-        self.number = number
-        self.status = status
-    }
+    var reserved: Bool
+    
+    init(id: UUID = UUID(), row: Int, number: Int, status: SeatStatus, reserved: Bool = false) {
+            self.id = id
+            self.row = row
+            self.number = number
+            self.status = status
+            self.reserved = reserved
+        }
 
     static func == (lhs: Seat, rhs: Seat) -> Bool {
-        lhs.id == rhs.id
-    }
+            lhs.id == rhs.id
+        }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
 }
 
 enum SeatStatus: String {

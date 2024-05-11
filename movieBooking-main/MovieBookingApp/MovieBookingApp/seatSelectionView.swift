@@ -5,7 +5,7 @@ struct SeatSelectionView: View {
     @State private var selectedSeats: Set<UUID> = []
     @State private var totalPrice: Double = 0.0
     @State private var navigateToTicketView = false
-    @State private var selectedSeatsDescriptions: String = ""  // Added to hold the formatted seat descriptions
+    @State private var selectedSeatsDescriptions: String = ""  // Formatted seat descriptions
 
     var movie: Movie
     var selectedDate: Date?
@@ -65,6 +65,8 @@ struct SeatSelectionView: View {
                 Button("Pay & Get Ticket!") {
                     if let date = selectedDate, let time = selectedTime {
                         selectedSeatsDescriptions = generateSeatDescriptions()
+                        markSeatsAsReserved()
+                        TicketService.shared.bookTicket(for: movie, date: date, time: time, seats: selectedSeatsDescriptions)
                         navigateToTicketView = true
                     }
                 }
@@ -105,7 +107,15 @@ struct SeatSelectionView: View {
         }
     }
 
-    // Function to generate seat descriptions from selected seat IDs
+    private func markSeatsAsReserved() {
+        viewModel.seats.flatMap { $0 }.forEach { seat in
+            if selectedSeats.contains(seat.id) {
+                seat.status = .sold
+                seat.reserved = true
+            }
+        }
+    }
+
     private func generateSeatDescriptions() -> String {
         return selectedSeats.compactMap { seatID -> String? in
             guard let seat = viewModel.seats.flatMap({ $0 }).first(where: { $0.id == seatID }) else { return nil }

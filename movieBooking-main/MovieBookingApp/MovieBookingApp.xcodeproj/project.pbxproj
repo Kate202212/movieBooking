@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DA5D89A2BEF12CC00409832 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA5D8992BEF12CC00409832 /* Ticket.swift */; };
 		1DD462EE2BE4AF1E00B6D41A /* MovieBookingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD462ED2BE4AF1E00B6D41A /* MovieBookingApp.swift */; };
 		1DD462F22BE4AF2200B6D41A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD462F12BE4AF2200B6D41A /* Assets.xcassets */; };
 		1DD462F52BE4AF2200B6D41A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD462F42BE4AF2200B6D41A /* Preview Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1DA5D8992BEF12CC00409832 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Ticket.swift; path = "../../../../.Trash/movieBooking-main 中午12.29.45/MovieBookingApp/MovieBookingApp/Ticket.swift"; sourceTree = "<group>"; };
 		1DD462EA2BE4AF1E00B6D41A /* MovieBookingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieBookingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD462ED2BE4AF1E00B6D41A /* MovieBookingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieBookingApp.swift; sourceTree = "<group>"; };
 		1DD462F12BE4AF2200B6D41A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				F87ECEA52BE7668500C4C349 /* BookingSummaryBox.swift */,
 				F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */,
 				F87ECEA92BE766F800C4C349 /* seatSelectionView.swift */,
+				1DA5D8992BEF12CC00409832 /* Ticket.swift */,
 				F87ECEAB2BE7670E00C4C349 /* ticketView.swift */,
 				1DD462F12BE4AF2200B6D41A /* Assets.xcassets */,
 				1DD462F32BE4AF2200B6D41A /* Preview Content */,
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DA5D89A2BEF12CC00409832 /* Ticket.swift in Sources */,
 				F87ECEA62BE7668500C4C349 /* BookingSummaryBox.swift in Sources */,
 				1DD463002BE4AFBD00B6D41A /* MovieDetailView.swift in Sources */,
 				1DD463042BE4D67D00B6D41A /* APIService.swift in Sources */,
