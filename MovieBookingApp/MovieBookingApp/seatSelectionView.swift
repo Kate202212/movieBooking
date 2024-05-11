@@ -91,6 +91,9 @@ struct SeatSelectionView: View {
                 EmptyView()
             }
             .hidden()
+            .onAppear {
+                        viewModel.updateReservedSeats()
+                    }
         }
     }
 

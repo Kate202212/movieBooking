@@ -7,24 +7,25 @@ class Seat: Identifiable, ObservableObject, Hashable {
     @Published var status: SeatStatus
     let row: Int
     let number: Int
-    var reserved: Bool
-    
+    @Published var reserved: Bool
+
     init(id: UUID = UUID(), row: Int, number: Int, status: SeatStatus, reserved: Bool = false) {
-            self.id = id
-            self.row = row
-            self.number = number
-            self.status = status
-            self.reserved = reserved
-        }
+        self.id = id
+        self.row = row
+        self.number = number
+        self.status = status
+        self.reserved = reserved
+    }
 
     static func == (lhs: Seat, rhs: Seat) -> Bool {
-            lhs.id == rhs.id
-        }
+        lhs.id == rhs.id
+    }
 
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
+
 
 enum SeatStatus: String {
     case available = "availableSeat"
@@ -66,4 +67,31 @@ struct SeatLegendView: View {
                 .font(.caption)
         }
     }
+}
+extension SeatSelectionViewModel {
+    func updateReservedSeats() {
+        let allTickets = TicketService.shared.tickets
+        var updatedSeats = seats 
+
+        for ticket in allTickets {
+            let bookedSeats = ticket.seats.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+            for bookedSeat in bookedSeats {
+                if let rowLetter = bookedSeat.first, let seatNumber = Int(bookedSeat.dropFirst()) {
+                    let rowNumber = Int(rowLetter.asciiValue! - Character("A").asciiValue! + 1)
+                    let rowIndex = rowNumber - 1
+                    if rowIndex >= 0 && rowIndex < seats.count {
+                        if let seatIndex = seats[rowIndex].firstIndex(where: { $0.number == seatNumber }) {
+                            updatedSeats[rowIndex][seatIndex].reserved = true
+                            updatedSeats[rowIndex][seatIndex].status = .sold
+                        }
+                    }
+                }
+            }
+        }
+
+        DispatchQueue.main.async {
+            self.seats = updatedSeats
+        }
+    }
+
 }

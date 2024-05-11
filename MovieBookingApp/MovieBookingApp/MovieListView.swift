@@ -74,63 +74,75 @@ struct MovieListView: View {
 struct MyTicketView: View {
     @ObservedObject var ticketService = TicketService.shared
     @State private var showingAlert = false
-    @State private var ticketToCancel: UUID?
+    @State private var ticketToDelete: Ticket?
+    @State private var selectedTicket: Ticket? // To store the selected ticket
 
     var body: some View {
         NavigationView {
             List(ticketService.tickets) { ticket in
-                HStack(alignment: .top, spacing: 16) {
-                    // Load the movie poster image
-                    AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(ticket.movie.posterPath)")) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80, height: 120)  // Adjust dimensions as required
-                            .cornerRadius(8)
-                    } placeholder: {
-                        Color.gray
-                            .frame(width: 80, height: 120)  // Placeholder size matching the image
-                            .cornerRadius(8)
+                TicketRow(ticket: ticket)
+                    .onTapGesture {
+                        selectedTicket = ticket // Set the selected ticket when tapped
                     }
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text(ticket.movie.title)
-                            .font(.headline)
-
-                        Text("Date: \(ticket.date, formatter: DateFormatter.ticketDateFormatter)")
-                        Text("Time: \(ticket.time)")
-                        Text("Seats: \(ticket.seats)")
-                    }
-
-                    Spacer()
-
-                    // Cancel Booking Button, with alert confirmation
-                    Button(action: {
-                        self.ticketToCancel = ticket.id
-                        self.showingAlert = true
-                    }) {
-                        Image(systemName: "trash")
-                            .font(.system(size: 24))
-                            .foregroundColor(.red)
-                            .padding(8)
-                    }
-                }
-                .padding(.vertical, 8)
             }
             .navigationTitle("My Tickets")
-        }
-        .alert("Confirm Cancellation", isPresented: $showingAlert) {
-            Button("Cancel", role: .cancel) {}
-            Button("Confirm", role: .destructive) {
-                if let ticketID = ticketToCancel {
-                    ticketService.cancelTicket(ticketID: ticketID)
-                }
+            .sheet(item: $selectedTicket) { ticket in
+                ticketView(movie: ticket.movie, selectedDate: ticket.date, selectedTime: ticket.time, selectedSeats: ticket.seats, gradient: [Color.blue, Color.purple]) // Show the TicketDetailView when a ticket is selected
             }
-        } message: {
-            Text("Are you sure you want to cancel this ticket?")
+        }
+    }
+
+    @ViewBuilder
+    func TicketRow(ticket: Ticket) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(ticket.movie.posterPath)")) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 120)
+                    .cornerRadius(8)
+            } placeholder: {
+                Color.gray
+                    .frame(width: 80, height: 120)
+                    .cornerRadius(8)
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(ticket.movie.title)
+                    .font(.headline)
+
+                Text("Date: \(ticket.date, formatter: DateFormatter.ticketDateFormatter)")
+                Text("Time: \(ticket.time)")
+                Text("Seats: \(ticket.seats)")
+            }
+
+            Spacer()
+
+            Button(action: {
+                // Toggle the showingAlert flag to display the alert
+                showingAlert.toggle()
+                ticketToDelete = ticket // Set the ticket to delete when the button is tapped
+            }) {
+                Image(systemName: "trash")
+                    .font(.system(size: 24))
+                    .foregroundColor(.red)
+                    .padding(8)
+            }
+            .buttonStyle(PlainButtonStyle()) // Ensure the button is clickable
+        }
+        .padding(.vertical, 8)
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Confirm Cancellation"), message: Text("Are you sure you want to cancel this ticket?"), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Confirm"), action: {
+                // Perform cancellation action here
+                if let ticket = ticketToDelete {
+                    ticketService.cancelTicket(ticketID: ticket.id)
+                    ticketToDelete = nil // Reset ticketToDelete after cancellation
+                }
+            }))
         }
     }
 }
+
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
         MovieListView()
