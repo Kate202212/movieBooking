@@ -11,7 +11,7 @@ struct MovieDetailView: View {
     @StateObject private var cinemaModel = CinemaDateModel()  // Model holding dates and times
     
     var body: some View {
-        // Removed the outer NavigationView that was causing nesting issues
+    
         ZStack {
             AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)")!) { phase in
                 if case .success(let image) = phase {
@@ -39,7 +39,6 @@ struct MovieDetailView: View {
                     .shadow(radius: 10)
                     .padding(.top, 50)
                 
-                
                 Text("Select date")
                     .font(.headline)
                     .fontWeight(.semibold)
@@ -48,17 +47,15 @@ struct MovieDetailView: View {
                 
                 selectionScrollView()
                 
-                
                 if let date = selectedDate {
                     timeSelectionView(for: date)
                 }
                 
-                // Correct placement of NavigationLink to prevent multiple navigation bars
                 NavigationLink(destination: SeatSelectionView(movie: movie, selectedDate: selectedDate, selectedTime: selectedTime)) {
                     Text("Select Seats")
                 }
                 .padding()
-                .background(selectedDate == nil || selectedTime == nil ? Color.gray : Color.orange) // Conditional color change
+                .background(selectedDate == nil || selectedTime == nil ? Color.gray : Color.pink)
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .disabled(selectedDate == nil || selectedTime == nil)
@@ -84,7 +81,7 @@ struct MovieDetailView: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 12)
-                            .background(selectedDate == session.date ? Color.blue : Color.gray.opacity(0.7))
+                            .background(selectedDate == session.date ? Color.pink : Color.gray.opacity(0.7))
                             .cornerRadius(8)
                     }
                 }
@@ -113,7 +110,7 @@ struct MovieDetailView: View {
                                 .foregroundColor(.white)
                                 .padding(.vertical, 8)
                                 .padding(.horizontal, 12)
-                                .background(selectedTime == time ? Color.blue : Color.gray.opacity(0.7))
+                                .background(selectedTime == time ? Color.pink : Color.gray.opacity(0.7))
                                 .cornerRadius(8)
                         }
                     }

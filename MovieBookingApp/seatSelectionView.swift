@@ -5,7 +5,7 @@ struct SeatSelectionView: View {
     @State private var selectedSeats: Set<UUID> = []
     @State private var totalPrice: Double = 0.0
     @State private var navigateToTicketView = false
-    @State private var selectedSeatsDescriptions: String = ""  // Formatted seat descriptions
+    @State private var selectedSeatsDescriptions: String = ""
 
     var movie: Movie
     var selectedDate: Date?
@@ -62,7 +62,7 @@ struct SeatSelectionView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Button("Pay & Get Ticket!") {
+                Button("Reserve!") {
                     if let date = selectedDate, let time = selectedTime {
                         selectedSeatsDescriptions = generateSeatDescriptions()
                         markSeatsAsReserved()
@@ -75,6 +75,7 @@ struct SeatSelectionView: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .frame(maxWidth: .infinity, alignment: .trailing)
+                .disabled(selectedSeats.isEmpty) // Disable button if no seat is selected
             }
             .padding()
             
@@ -91,6 +92,11 @@ struct SeatSelectionView: View {
                 EmptyView()
             }
             .hidden()
+            .onAppear {
+                if let date = selectedDate, let time = selectedTime {
+                                viewModel.updateReservedSeats(for: movie, date: date, time: time)
+                }
+            }
         }
     }
 

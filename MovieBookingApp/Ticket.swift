@@ -1,10 +1,3 @@
-//
-//  Ticket.swift
-//  MovieBookingApp
-//
-//  Created by Kate Nguyen on 11/05/2024.
-//
-
 import Foundation
 
 struct Ticket: Identifiable {
@@ -15,7 +8,6 @@ struct Ticket: Identifiable {
     let seats: String
 }
 
-// TicketService.swift
 class TicketService: ObservableObject {
     static let shared = TicketService()
     @Published private(set) var tickets: [Ticket] = []
