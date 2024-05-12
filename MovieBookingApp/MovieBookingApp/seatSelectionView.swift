@@ -92,7 +92,9 @@ struct SeatSelectionView: View {
             }
             .hidden()
             .onAppear {
-                        viewModel.updateReservedSeats()
+                if let date = selectedDate, let time = selectedTime {
+                                viewModel.updateReservedSeats(for: movie, date: date, time: time)
+                            }
                     }
         }
     }

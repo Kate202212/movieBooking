@@ -1,6 +1,6 @@
-import SwiftUI
 
 import SwiftUI
+
 
 class Seat: Identifiable, ObservableObject, Hashable {
     let id: UUID
@@ -8,6 +8,7 @@ class Seat: Identifiable, ObservableObject, Hashable {
     let row: Int
     let number: Int
     @Published var reserved: Bool
+    var reservations: [(date: String, time: String)] = []
 
     init(id: UUID = UUID(), row: Int, number: Int, status: SeatStatus, reserved: Bool = false) {
         self.id = id
@@ -25,6 +26,7 @@ class Seat: Identifiable, ObservableObject, Hashable {
         hasher.combine(id)
     }
 }
+
 
 
 enum SeatStatus: String {
@@ -69,29 +71,39 @@ struct SeatLegendView: View {
     }
 }
 extension SeatSelectionViewModel {
-    func updateReservedSeats() {
-        let allTickets = TicketService.shared.tickets
-        var updatedSeats = seats 
 
-        for ticket in allTickets {
-            let bookedSeats = ticket.seats.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-            for bookedSeat in bookedSeats {
-                if let rowLetter = bookedSeat.first, let seatNumber = Int(bookedSeat.dropFirst()) {
-                    let rowNumber = Int(rowLetter.asciiValue! - Character("A").asciiValue! + 1)
-                    let rowIndex = rowNumber - 1
-                    if rowIndex >= 0 && rowIndex < seats.count {
-                        if let seatIndex = seats[rowIndex].firstIndex(where: { $0.number == seatNumber }) {
-                            updatedSeats[rowIndex][seatIndex].reserved = true
-                            updatedSeats[rowIndex][seatIndex].status = .sold
+    func updateReservedSeats(for movie: Movie, date: Date, time: String) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"  // The date format should match the format used when comparing dates.
+            let dateStr = dateFormatter.string(from: date)
+
+            // Filter tickets by converting Ticket.date to String for comparison
+            let relevantTickets = TicketService.shared.tickets.filter {
+                $0.movie.id == movie.id && dateFormatter.string(from: $0.date) == dateStr && $0.time == time
+            }
+
+            for ticket in relevantTickets {
+                let bookedSeats = ticket.seats.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespaces) }
+                for bookedSeat in bookedSeats {
+                    if let rowLetter = bookedSeat.first, let seatNumber = Int(bookedSeat.dropFirst()) {
+                        let rowNumber = Int(rowLetter.asciiValue! - Character("A").asciiValue! + 1)
+                        let rowIndex = rowNumber - 1
+                        if rowIndex < seats.count {
+                            if let seatIndex = seats[rowIndex].firstIndex(where: { $0.number == seatNumber }) {
+                                seats[rowIndex][seatIndex].reservations.append((date: dateStr, time: time))
+                                seats[rowIndex][seatIndex].reserved = true
+                                seats[rowIndex][seatIndex].status = .sold
+                            }
                         }
                     }
                 }
             }
-        }
 
-        DispatchQueue.main.async {
-            self.seats = updatedSeats
+            // Use DispatchQueue to update the UI thread
+            DispatchQueue.main.async { [weak self] in
+                self?.seats = self?.seats ?? []  // Ensures the UI updates with the new state
+            }
         }
-    }
 
 }
+
