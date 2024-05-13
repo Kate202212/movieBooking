@@ -1,10 +1,3 @@
-//
-//  BookingSummaryBoxView.swift
-//  Kate_seatSelection
-//
-//  Created by Kate Nguyen on 04/05/2024.
-//
-
 import SwiftUI
 
 struct SummaryBoxView: View {
@@ -36,7 +29,6 @@ struct SummaryBoxView: View {
         .foregroundColor(.black)
         .cornerRadius(6)
         .shadow(radius: 5)
-        
     }
 
     private func seatDescriptions() -> String {

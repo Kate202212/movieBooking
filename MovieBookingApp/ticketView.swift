@@ -17,7 +17,7 @@ struct ticketView: View {
             } placeholder: {
                 Color.gray
             }
-            .frame(width: 300, height: 400) // Adjusted width and increased height
+            .frame(width: 300, height: 400)
             .cornerRadius(15, corners: [.topLeft, .topRight])
             
             // Bottom part with ticket details
@@ -49,13 +49,13 @@ struct ticketView: View {
                 }
                 .font(.headline);
                 
-                Image("barcode")
+                Image("barcode") // Icon for the barcode
                     .resizable()
                     .scaledToFill()
                     .padding(.horizontal)
             }
             .padding()
-            .frame(maxWidth: 300) // Adjusted max width to match the new width
+            .frame(maxWidth: 300)
             .background(LinearGradient(gradient: Gradient(colors: gradient), startPoint: .topLeading, endPoint: .bottomTrailing))
             .cornerRadius(15, corners: [.bottomLeft, .bottomRight])
             
@@ -76,8 +76,8 @@ struct ticketView: View {
                 }
             }
         }
-        .navigationBarTitle("", displayMode: .inline) // Hides the navigation bar title
-        .navigationBarHidden(true) // Hides the navigation bar
+        .navigationBarTitle("", displayMode: .inline) 
+        .navigationBarHidden(true)
     }
 }
 
