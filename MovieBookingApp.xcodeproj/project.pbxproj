@@ -53,6 +53,7 @@
 		1DD462E12BE4AF1E00B6D41A = {
 			isa = PBXGroup;
 			children = (
+				F8B81EC02BF332C800EAF50F /* Model */,
 				1DD462EC2BE4AF1E00B6D41A /* MovieBookingApp */,
 				1DD462EB2BE4AF1E00B6D41A /* Products */,
 			);
@@ -69,14 +70,9 @@
 		1DD462EC2BE4AF1E00B6D41A /* MovieBookingApp */ = {
 			isa = PBXGroup;
 			children = (
-				1DD462ED2BE4AF1E00B6D41A /* MovieBookingApp.swift */,
-				1DD463012BE4D65E00B6D41A /* Movie.swift */,
-				1DD463032BE4D67D00B6D41A /* APIService.swift */,
 				1DD462FD2BE4AF8100B6D41A /* MovieListView.swift */,
 				1DD462FF2BE4AFBD00B6D41A /* MovieDetailView.swift */,
-				38911B5F2BE571CD00C08E43 /* CinemaDateModel.swift */,
 				F87ECEA52BE7668500C4C349 /* BookingSummaryBox.swift */,
-				F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */,
 				F87ECEA92BE766F800C4C349 /* seatSelectionView.swift */,
 				F87ECEAB2BE7670E00C4C349 /* ticketView.swift */,
 				F8878B122BEFA36600C810A4 /* Ticket.swift */,
@@ -92,6 +88,19 @@
 				1DD462F42BE4AF2200B6D41A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F8B81EC02BF332C800EAF50F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1DD462ED2BE4AF1E00B6D41A /* MovieBookingApp.swift */,
+				1DD463032BE4D67D00B6D41A /* APIService.swift */,
+				1DD463012BE4D65E00B6D41A /* Movie.swift */,
+				38911B5F2BE571CD00C08E43 /* CinemaDateModel.swift */,
+				F87ECEA72BE766D600C4C349 /* seatSelectionViewModel.swift */,
+				F8878B122BEFA36600C810A4 /* Ticket.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

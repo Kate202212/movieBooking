@@ -10,6 +10,12 @@ Assessment Task 3
 
 Group project: Design and develop an application
 
+GITHUB link: https://github.com/Kate202212/movieBooking.git 
+Group members: 
+1. Thi Bich Thuan Nguyen - 24671962
+2. Tzu-Yi Chuang - 25154459
+3. Prakai Prajit - 24597712
+
 Due date: Week 12 lab session
 
 This project is worth 30% of the overall mark for this subject.
